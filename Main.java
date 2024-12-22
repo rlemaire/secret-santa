@@ -20,11 +20,12 @@ public class Main {
             if (couples.containsKey(participant)) {
                 receveursPossibles.remove(couples.get(participant));
             }
-            // a participant cannot give its present to the participant who gave him his present
-            if (correspondance.containsKey(participant)) {
-                receveursPossibles.remove(correspondance.get(participant));
-            }
             String receveur = receveursPossibles.get(random.nextInt(receveursPossibles.size()));
+            // a participant cannot give its present to the participant who gave him his present
+            if (correspondance.containsKey(receveur) && correspondance.get(receveur).equals(participant)) {
+                receveursPossibles.remove(receveur);
+                receveur = receveursPossibles.get(random.nextInt(receveursPossibles.size()));
+            }
             correspondance.put(participant, receveur);
         }
         correspondance.forEach((a, b) -> {
